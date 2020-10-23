@@ -1,4 +1,5 @@
 const data = require("./data");
+
 function entryCalculator(entrants) {
   if (typeof entrants === "undefined" || Object.keys(entrants).length === 0) {
     return 0;
@@ -67,27 +68,20 @@ function animalCount(species) {
 function animalMap(options) {
   if (typeof options === "undefined") {
     const animals = JSON.parse(JSON.stringify(data.animals));
-    const obj = {};
-
-    const locations = animals
-      .map((x) => {
-        return x.location;
-      })
-      .filter((el, index, self) => {
-        return index === self.indexOf(el);
-      });
-
-    const arr = [];
-
-    animals.filter((x) => {
-      return x.location;
-    });
-
-    locations.map((x) => {
-      obj[x] = "";
-    });
-
-    //return obj
+    
+    return animals.map((e) => {
+      return {
+        name: e.name,
+        location: e.location
+      }
+    }).reduce((a, e) => {
+      if(Array.isArray(a[e.location])) {
+        a[e.location].push(e.name);
+      } else {
+        a[e.location] = [e.name];
+      }
+      return a;
+    }, {});
   } else {
   }
 }
