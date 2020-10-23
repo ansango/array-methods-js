@@ -67,52 +67,58 @@ function animalCount(species) {
 
 function animalMap(options) {
   const animals = JSON.parse(JSON.stringify(data.animals));
-  if (typeof options === "undefined") {    
-    return animals.map((e) => {
-      return {
-        name: e.name,
-        location: e.location
-      }
-    }).reduce((a, e) => {
-      if(Array.isArray(a[e.location])) {
-        a[e.location].push(e.name);
-      } else {
-        a[e.location] = [e.name];
-      }
-      return a;
-    }, {});
+  if (typeof options === "undefined") {
+    return animals
+      .map((e) => {
+        return {
+          name: e.name,
+          location: e.location,
+        };
+      })
+      .reduce((a, e) => {
+        if (Array.isArray(a[e.location])) {
+          a[e.location].push(e.name);
+        } else {
+          a[e.location] = [e.name];
+        }
+        return a;
+      }, {});
   } else {
-    return animals.map((e) => {
-      return {
-        name: e.name,
-        location: e.location,
-        residents: e.residents.map(e => e.name)
-      }
-    }).reduce((a, e) => {
-      let obj = {};
-      if(!Array.isArray(a[e.location])) a[e.location] = [];
-      obj[e.name] = e.residents;
-      a[e.location].push(obj);
-      return a;
-    }, {});
+    return animals
+      .map((e) => {
+        return {
+          name: e.name,
+          location: e.location,
+          residents: e.residents.map((e) => e.name),
+        };
+      })
+      .reduce((a, e) => {
+        let obj = {};
+        if (!Array.isArray(a[e.location])) a[e.location] = [];
+        obj[e.name] = e.residents;
+        a[e.location].push(obj);
+        return a;
+      }, {});
   }
 }
 
 function animalPopularity(rating) {
   const animals = JSON.parse(JSON.stringify(data.animals));
-  if (typeof rating === "undefined") { 
-    return animals.map((e) => {
-      return {
-        name: e.name,
-        popularity: e.popularity
-      }
-    }).reduce((a, e) => {
-      if(!Array.isArray(a[e.popularity])) a[e.popularity] = [];
-      a[e.popularity].push(e.name);
-      return a;
-    }, {});
+  if (typeof rating === "undefined") {
+    return animals
+      .map((e) => {
+        return {
+          name: e.name,
+          popularity: e.popularity,
+        };
+      })
+      .reduce((a, e) => {
+        if (!Array.isArray(a[e.popularity])) a[e.popularity] = [];
+        a[e.popularity].push(e.name);
+        return a;
+      }, {});
   } else {
-    return animals.filter(e => e.popularity === rating).map(e => e.name);
+    return animals.filter((e) => e.popularity === rating).map((e) => e.name);
   }
 }
 
@@ -121,8 +127,7 @@ function animalsByIds(ids) {
     return [];
   } else if (typeof ids === "string") {
     return data.animals.filter((x) => x.id === ids);
-  } else{
-    
+  } else {
   }
 }
 
@@ -133,19 +138,82 @@ function animalByName(animalName) {
 }
 
 function employeesByIds(ids) {
-  // your code here
+  if (typeof ids === "undefined") {
+    return [];
+  } else if (typeof ids === "string") {
+    const employees = JSON.parse(JSON.stringify(data.employees));
+    return employees.filter((employee) => employee.id === ids);
+  } else {
+    const employees = JSON.parse(JSON.stringify(data.employees));
+    return employees.filter((employee) => ids.includes(employee.id));
+  }
 }
 
 function employeeByName(employeeName) {
-  // your code here
+  if (typeof employeeName === "undefined") {
+    return {};
+  } else {
+    const employees = JSON.parse(JSON.stringify(data.employees));
+    return employees.find((employee) =>
+      [employee.firstName, employee.lastName].includes(employeeName)
+    );
+  }
 }
 
 function managersForEmployee(idOrName) {
-  // your code here
+  const employees = JSON.parse(JSON.stringify(data.employees));
+
+  // * buscamos el empleado
+
+  const employee = employees.find((e) =>
+    [e.id, e.firstName, e.lastName].includes(idOrName)
+  );
+
+  // * buscamos sus managers
+
+  employee.managers = employee.managers.map((managerId) => {
+    // * buscamos en manager por el id
+
+    const manager = employees.find((e) =>
+      [e.id, e.firstName, e.lastName].includes(managerId)
+    );
+
+    // * retornamos y el valor que se retorna reemplaza el original (el id)
+
+    return `${manager.firstName} ${manager.lastName}`;
+  });
+
+  return employee;
 }
 
 function employeeCoverage(idOrName) {
-  // your code here
+  const employees = JSON.parse(JSON.stringify(data.employees));
+  const animals = JSON.parse(JSON.stringify(data.animals));
+
+  if (typeof idOrName === "undefined") {
+    const _employees = {};
+    employees.forEach((employee) => {
+      _employees[
+        `${employee.firstName} ${employee.lastName}`
+      ] = employee.responsibleFor.map((animalId) => {
+        const _animal = animals.find((a) => a.id === animalId);
+        return _animal.name;
+      });
+    });
+    return _employees;
+  } else {
+    const _employee = {};
+    const employee = employees.find((employee) =>
+      [employee.id, employee.firstName, employee.lastName].includes(idOrName)
+    );
+    _employee[
+      `${employee.firstName} ${employee.lastName}`
+    ] = employee.responsibleFor.map((animalId) => {
+      const _animal = animals.find((a) => a.id === animalId);
+      return _animal.name;
+    });
+    return _employee;
+  }
 }
 
 module.exports = {
