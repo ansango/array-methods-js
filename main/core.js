@@ -100,15 +100,7 @@ function animalMap(options) {
 
 function animalPopularity(rating) {
   const animals = JSON.parse(JSON.stringify(data.animals));
-  if (typeof options === "undefined") {
-    /*
-      {
-        '2': ['frogs'],
-        '3': ['snakes'],
-        '4': ['lions', 'penguins', 'otters', 'giraffes'],
-        '5': ['tigers', 'bears', 'elephants']
-      }
-    */  
+  if (typeof rating === "undefined") { 
     return animals.map((e) => {
       return {
         name: e.name,
@@ -120,7 +112,7 @@ function animalPopularity(rating) {
       return a;
     }, {});
   } else {
-    return undefined;
+    return animals.filter(e => e.popularity === rating).map(e => e.name);
   }
 }
 
