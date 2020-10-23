@@ -127,7 +127,6 @@ describe('Zoo', function() {
 
       assert.deepEqual(actual, expected);
     });
-/*
     it('with specified options, returns names of fe/male animals', function() {
       var options = { includeNames: true, sex: 'female' };
       var actual = zoo.animalMap(options);
@@ -151,7 +150,7 @@ describe('Zoo', function() {
       var expected = 'lions';
 
       assert.equal(actual, expected);
-    });*/
+    });
   });
 
   describe('#animalPopularity()', function() {
@@ -174,7 +173,6 @@ describe('Zoo', function() {
       assert.deepEqual(actual, expected);
     });
   });
-/*
   describe('#animalsByIds()', function() {
     it('with no parameters, returns an empty array', function() {
       var actual = zoo.animalsByIds();
@@ -462,5 +460,4 @@ describe('Zoo', function() {
       assert.deepEqual(actual, expected);
     });
   });
-*/
 });
