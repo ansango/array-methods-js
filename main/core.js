@@ -1,3 +1,4 @@
+const { animals } = require("./data");
 const data = require("./data");
 
 function entryCalculator(entrants) {
@@ -128,6 +129,7 @@ function animalsByIds(ids) {
   } else if (typeof ids === "string") {
     return data.animals.filter((x) => x.id === ids);
   } else {
+    return animals.filter(e => ids.includes(e.id));
   }
 }
 
