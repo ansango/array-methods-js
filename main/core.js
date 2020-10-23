@@ -1,3 +1,4 @@
+const { animals } = require("./data");
 const data = require("./data");
 
 function entryCalculator(entrants) {
@@ -122,7 +123,36 @@ function animalsByIds(ids) {
   } else if (typeof ids === "string") {
     return data.animals.filter((x) => x.id === ids);
   } else{
-    
+
+    return animals.filter(e => ids.includes(e.id))
+                  .map((e) => {
+                    return e;
+                  });
+    /*
+    {
+          id: '0938aa23-f153-4937-9f88-4858b24d6bce',
+          name: 'lions',
+          popularity: 4,
+          location: 'NE',
+          residents: [
+            { name: 'Zena', sex: 'female', age: 12 },
+            { name: 'Maxwell', sex: 'male', age: 15 },
+            { name: 'Faustino', sex: 'male', age: 7 },
+            { name: 'Dee', sex: 'female', age: 14 }
+          ]
+        },
+        {
+          id: 'e8481c1d-42ea-4610-8e11-1752cfc05a46',
+          name: 'tigers',
+          popularity: 5,
+          location: 'NW',
+          residents: [
+            { name: 'Shu', sex: 'female', age: 19 },
+            { name: 'Esther', sex: 'female', age: 17 }
+          ]
+        }
+      ]
+    */
   }
 }
 

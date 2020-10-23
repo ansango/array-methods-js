@@ -174,7 +174,7 @@ describe('Zoo', function() {
       assert.deepEqual(actual, expected);
     });
   });
-/*
+
   describe('#animalsByIds()', function() {
     it('with no parameters, returns an empty array', function() {
       var actual = zoo.animalsByIds();
@@ -236,7 +236,7 @@ describe('Zoo', function() {
       assert.deepEqual(actual, expected);
     });
   });
-
+/*
   describe('#animalByName()', function() {
     it('with no parameters, returns an empty object', function() {
       var actual = zoo.animalByName();
