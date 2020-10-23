@@ -153,7 +153,7 @@ describe('Zoo', function() {
       assert.equal(actual, expected);
     });*/
   });
-/*
+
   describe('#animalPopularity()', function() {
     it('with no parameters, returns animals sorted into groups by popularity', function() {
       var actual = zoo.animalPopularity();
@@ -174,7 +174,7 @@ describe('Zoo', function() {
       assert.deepEqual(actual, expected);
     });
   });
-
+/*
   describe('#animalsByIds()', function() {
     it('with no parameters, returns an empty array', function() {
       var actual = zoo.animalsByIds();

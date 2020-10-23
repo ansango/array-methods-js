@@ -89,7 +89,6 @@ function animalMap(options) {
         residents: e.residents.map(e => e.name)
       }
     }).reduce((a, e) => {
-
       let obj = {};
       if(!Array.isArray(a[e.location])) a[e.location] = [];
       obj[e.name] = e.residents;
@@ -100,7 +99,29 @@ function animalMap(options) {
 }
 
 function animalPopularity(rating) {
-  // your code here
+  const animals = JSON.parse(JSON.stringify(data.animals));
+  if (typeof options === "undefined") {
+    /*
+      {
+        '2': ['frogs'],
+        '3': ['snakes'],
+        '4': ['lions', 'penguins', 'otters', 'giraffes'],
+        '5': ['tigers', 'bears', 'elephants']
+      }
+    */  
+    return animals.map((e) => {
+      return {
+        name: e.name,
+        popularity: e.popularity
+      }
+    }).reduce((a, e) => {
+      if(!Array.isArray(a[e.popularity])) a[e.popularity] = [];
+      a[e.popularity].push(e.name);
+      return a;
+    }, {});
+  } else {
+    return undefined;
+  }
 }
 
 function animalsByIds(ids) {
