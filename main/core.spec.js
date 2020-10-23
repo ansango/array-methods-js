@@ -102,7 +102,7 @@ describe('Zoo', function() {
 
       assert.deepEqual(actual, expected);
     });
-/*
+
     it('with specified options, returns names of animals', function() {
       var options = { includeNames: true };
       var actual = zoo.animalMap(options);
@@ -127,7 +127,7 @@ describe('Zoo', function() {
 
       assert.deepEqual(actual, expected);
     });
-
+/*
     it('with specified options, returns names of fe/male animals', function() {
       var options = { includeNames: true, sex: 'female' };
       var actual = zoo.animalMap(options);

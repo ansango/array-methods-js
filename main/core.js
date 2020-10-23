@@ -66,9 +66,8 @@ function animalCount(species) {
 }
 
 function animalMap(options) {
-  if (typeof options === "undefined") {
-    const animals = JSON.parse(JSON.stringify(data.animals));
-    
+  const animals = JSON.parse(JSON.stringify(data.animals));
+  if (typeof options === "undefined") {    
     return animals.map((e) => {
       return {
         name: e.name,
@@ -83,6 +82,20 @@ function animalMap(options) {
       return a;
     }, {});
   } else {
+    return animals.map((e) => {
+      return {
+        name: e.name,
+        location: e.location,
+        residents: e.residents.map(e => e.name)
+      }
+    }).reduce((a, e) => {
+
+      let obj = {};
+      if(!Array.isArray(a[e.location])) a[e.location] = [];
+      obj[e.name] = e.residents;
+      a[e.location].push(obj);
+      return a;
+    }, {});
   }
 }
 
