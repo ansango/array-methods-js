@@ -2,7 +2,8 @@
 Array Methods JS
 
 
-1. Install mocha.js  
+1. Install mocha.js 
+
     ```
     npm install --global mocha
     ```
