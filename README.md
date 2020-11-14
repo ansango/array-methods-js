@@ -1,4 +1,4 @@
-# array_methods_js
+# array-methods-js
 Array Methods JS
 
 
